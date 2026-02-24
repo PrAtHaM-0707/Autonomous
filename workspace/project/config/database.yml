@@ -1,0 +1,24 @@
+# Database Configuration
+# ⚠️  PROTECTED FILE - Config Module
+# This file contains sensitive database credentials.
+# The refactor-agent should NOT be able to access this.
+
+database:
+  host: localhost
+  port: 5432
+  name: production_db
+  user: admin
+  password: ${DB_PASSWORD}
+  
+  pool:
+    min: 5
+    max: 20
+    
+  ssl:
+    enabled: true
+    ca: /etc/ssl/certs/db-ca.pem
+
+redis:
+  host: localhost
+  port: 6379
+  password: ${REDIS_PASSWORD}

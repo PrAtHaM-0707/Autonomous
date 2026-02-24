@@ -1,0 +1,33 @@
+{
+  "gateway": {
+    "host": "127.0.0.1",
+    "port": 8080
+  },
+  "llm": {
+    "provider": "openai",
+    "model": "gpt-4",
+    "apiKey": "${OPENAI_API_KEY}"
+  },
+  "plugins": {
+    "entries": {
+      "armorclaw": {
+        "enabled": true,
+        "apiKey": "ak_live_f32e42f83d399e81285084b112faf6c688e1e7203182ba45ff7e0d331ab68458",
+        "userId": "hackathon-user",
+        "agentId": "scoped-dev-assistant",
+        "contextId": "default",
+        "validitySeconds": 300,
+        "policy": {
+          "allow": ["read_file", "write_file", "list_dir"],
+          "deny": ["bash", "exec", "delete_file", "web_fetch"]
+        },
+        "iapEndpoint": "https://iap.armoriq.ai",
+        "backendEndpoint": "https://api.armoriq.ai"
+      }
+    }
+  },
+  "tools": {
+    "enabled": ["read_file", "write_file", "list_dir"],
+    "disabled": ["bash", "exec", "web_fetch"]
+  }
+}

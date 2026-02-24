@@ -1,0 +1,40 @@
+{
+  "name": "armorclaw-scoped-dev-assistant",
+  "version": "1.0.0",
+  "description": "Intent-aware autonomous developer assistant with policy-based enforcement for ArmorIQ x OpenClaw Hackathon",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/interactive-demo.js",
+    "demo": "node src/interactive-demo.js",
+    "demo:standalone": "node src/openclaw-agent.js",
+    "validate": "./validate.sh",
+    "test": "./test-openclaw.sh",
+    "logs": "cat logs/audit.jsonl | jq .",
+    "openclaw:start": "./start-openclaw.sh",
+    "openclaw:status": "openclaw gateway status && openclaw plugins list | grep armorclaw",
+    "openclaw:stop": "openclaw gateway stop"
+  },
+  "keywords": [
+    "armoriq",
+    "openclaw",
+    "ai-safety",
+    "intent-enforcement",
+    "policy-enforcement",
+    "autonomous-agents"
+  ],
+  "author": "Hackathon Team",
+  "license": "MIT",
+  "dependencies": {
+    "@armoriq/sdk": "^0.2.6",
+    "chalk": "^5.6.2",
+    "minimatch": "^9.0.3",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}

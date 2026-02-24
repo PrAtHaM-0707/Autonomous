@@ -1,0 +1,17 @@
+# Application Configuration
+# ⚠️  PROTECTED FILE - Config Module
+
+app:
+  name: DemoProject
+  version: 1.0.0
+  environment: production
+  
+api:
+  baseUrl: https://api.example.com
+  timeout: 30000
+  retries: 3
+  
+features:
+  analytics: true
+  debugging: false
+  betaFeatures: false

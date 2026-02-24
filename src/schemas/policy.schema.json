@@ -1,0 +1,115 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "policy-schema-v1",
+  "title": "Policy Configuration Schema",
+  "description": "Structured policy model for role-based access control and path-scoped permissions",
+  "type": "object",
+  "required": ["version", "roles"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Policy schema version"
+    },
+    "defaultDeny": {
+      "type": "boolean",
+      "default": true,
+      "description": "If true, actions not explicitly allowed are denied"
+    },
+    "roles": {
+      "type": "object",
+      "description": "Role definitions with their permissions",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["description", "permissions"],
+        "properties": {
+          "description": {
+            "type": "string",
+            "description": "Human-readable description of this role"
+          },
+          "permissions": {
+            "type": "object",
+            "required": ["tools", "paths"],
+            "properties": {
+              "tools": {
+                "type": "object",
+                "required": ["allow", "deny"],
+                "properties": {
+                  "allow": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "description": "Tools this role is allowed to use"
+                  },
+                  "deny": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "description": "Tools explicitly denied to this role"
+                  }
+                }
+              },
+              "paths": {
+                "type": "object",
+                "required": ["allow", "deny"],
+                "properties": {
+                  "allow": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "description": "Glob patterns for allowed paths"
+                  },
+                  "deny": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "description": "Glob patterns for denied paths (takes precedence)"
+                  }
+                }
+              },
+              "constraints": {
+                "type": "object",
+                "description": "Additional constraints for this role",
+                "properties": {
+                  "maxFileSize": {
+                    "type": "string",
+                    "description": "Maximum file size for write operations"
+                  },
+                  "allowedExtensions": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "description": "File extensions this role can modify"
+                  },
+                  "readOnly": {
+                    "type": "boolean",
+                    "description": "If true, role can only read"
+                  },
+                  "maxOperationsPerIntent": {
+                    "type": "integer",
+                    "description": "Maximum number of operations per intent plan"
+                  }
+                }
+              },
+              "canDelegate": {
+                "type": "array",
+                "items": { "type": "string" },
+                "description": "Roles this role can delegate tasks to"
+              }
+            }
+          }
+        }
+      }
+    },
+    "globalConstraints": {
+      "type": "object",
+      "description": "Constraints that apply to all roles",
+      "properties": {
+        "deniedPatterns": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Patterns denied for all roles (e.g., .env files)"
+        },
+        "maxIntentValiditySeconds": {
+          "type": "integer",
+          "default": 300,
+          "description": "Maximum time an intent token is valid"
+        }
+      }
+    }
+  }
+}

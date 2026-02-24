@@ -1,0 +1,7 @@
+# This directory contains audit logs
+# Logs are generated when running the demo
+
+# To view logs:
+# cat audit.jsonl | jq
+
+# Log format: JSON Lines (one JSON object per line)

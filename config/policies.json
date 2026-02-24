@@ -1,0 +1,136 @@
+{
+  "version": "1.0.0",
+  "defaultDeny": true,
+  "roles": {
+    "scoped-dev-assistant": {
+      "description": "Scoped developer assistant with read access to src/components and src/utils",
+      "permissions": {
+        "tools": {
+          "allow": ["read_file", "list_dir"],
+          "deny": ["write_file", "delete_file", "bash", "exec", "web_fetch", "delegate"]
+        },
+        "paths": {
+          "allow": [
+            "src/components/**",
+            "src/components",
+            "src/utils/**",
+            "src/utils",
+            "README.md",
+            "package.json"
+          ],
+          "deny": [
+            "auth/**",
+            "config/**",
+            ".env*",
+            "secrets/**"
+          ]
+        },
+        "constraints": {
+          "maxFileSize": "500KB",
+          "allowedExtensions": [".js", ".jsx", ".ts", ".tsx", ".css", ".json", ".md"],
+          "readOnly": true,
+          "maxOperationsPerIntent": 10
+        },
+        "canDelegate": []
+      }
+    },
+    "lead-agent": {
+      "description": "Lead developer agent with src/components access, auth/config protected",
+      "permissions": {
+        "tools": {
+          "allow": ["read_file", "write_file", "list_dir", "delegate"],
+          "deny": ["bash", "exec", "delete_file"]
+        },
+        "paths": {
+          "allow": [
+            "src/components/**",
+            "src/components",
+            "src/utils/**",
+            "src/utils",
+            "README.md",
+            "package.json"
+          ],
+          "deny": [
+            "auth/**",
+            "config/**"
+          ]
+        },
+        "constraints": {
+          "maxFileSize": "500KB",
+          "allowedExtensions": [".js", ".jsx", ".ts", ".tsx", ".css", ".json", ".md"],
+          "maxOperationsPerIntent": 20
+        },
+        "canDelegate": ["refactor-agent", "review-agent"]
+      }
+    },
+    "refactor-agent": {
+      "description": "Code refactoring agent - can only modify files in src/components and src/utils",
+      "permissions": {
+        "tools": {
+          "allow": ["read_file", "write_file", "list_dir"],
+          "deny": ["bash", "exec", "delete_file", "web_fetch", "delegate"]
+        },
+        "paths": {
+          "allow": [
+            "src/components/**",
+            "src/components",
+            "src/utils/**",
+            "src/utils"
+          ],
+          "deny": [
+            "auth/**",
+            "config/**",
+            ".env*",
+            "secrets/**",
+            "README.md",
+            "package.json"
+          ]
+        },
+        "constraints": {
+          "maxFileSize": "100KB",
+          "allowedExtensions": [".js", ".jsx", ".ts", ".tsx", ".css"],
+          "readOnly": false,
+          "maxOperationsPerIntent": 10
+        },
+        "canDelegate": []
+      }
+    },
+    "review-agent": {
+      "description": "Code review agent - read-only access to src files only",
+      "permissions": {
+        "tools": {
+          "allow": ["read_file", "list_dir"],
+          "deny": ["write_file", "delete_file", "bash", "exec", "web_fetch", "delegate"]
+        },
+        "paths": {
+          "allow": [
+            "src/**"
+          ],
+          "deny": [
+            ".env*",
+            "secrets/**",
+            "auth/**",
+            "config/**"
+          ]
+        },
+        "constraints": {
+          "readOnly": true,
+          "maxOperationsPerIntent": 15
+        },
+        "canDelegate": []
+      }
+    }
+  },
+  "globalConstraints": {
+    "deniedPatterns": [
+      "**/.env",
+      "**/.env.*",
+      ".env",
+      "**/secrets/**",
+      "**/*.pem",
+      "**/*.key",
+      "**/id_rsa*"
+    ],
+    "maxIntentValiditySeconds": 300
+  }
+}

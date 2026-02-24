@@ -1,0 +1,123 @@
+{
+  "version": "1.0.0",
+  "description": "ArmorClaw policy store for OpenClaw agent",
+  "defaultDecision": "deny",
+  "rules": [
+    {
+      "id": "policy1-allow-read-components",
+      "action": "allow",
+      "tool": "read_file",
+      "params": {
+        "path": "src/components/**"
+      },
+      "scope": "run",
+      "reason": "Allow reading component files for refactoring"
+    },
+    {
+      "id": "policy2-allow-write-components",
+      "action": "allow",
+      "tool": "write_file",
+      "params": {
+        "path": "src/components/**"
+      },
+      "scope": "run",
+      "reason": "Allow writing component files for refactoring"
+    },
+    {
+      "id": "policy3-allow-read-utils",
+      "action": "allow",
+      "tool": "read_file",
+      "params": {
+        "path": "src/utils/**"
+      },
+      "scope": "run",
+      "reason": "Allow reading utility files"
+    },
+    {
+      "id": "policy4-allow-write-utils",
+      "action": "allow",
+      "tool": "write_file",
+      "params": {
+        "path": "src/utils/**"
+      },
+      "scope": "run",
+      "reason": "Allow writing utility files"
+    },
+    {
+      "id": "policy5-allow-list-src",
+      "action": "allow",
+      "tool": "list_dir",
+      "params": {
+        "path": "src/**"
+      },
+      "scope": "run",
+      "reason": "Allow listing src directories"
+    },
+    {
+      "id": "policy6-deny-auth",
+      "action": "deny",
+      "tool": "*",
+      "params": {
+        "path": "auth/**"
+      },
+      "scope": "run",
+      "reason": "Protect authentication modules from modification"
+    },
+    {
+      "id": "policy7-deny-config",
+      "action": "deny",
+      "tool": "*",
+      "params": {
+        "path": "config/**"
+      },
+      "scope": "run",
+      "reason": "Protect configuration files from modification"
+    },
+    {
+      "id": "policy8-deny-env",
+      "action": "deny",
+      "tool": "*",
+      "params": {
+        "path": "**/.env*"
+      },
+      "scope": "run",
+      "reason": "Globally block access to environment files"
+    },
+    {
+      "id": "policy9-deny-secrets",
+      "action": "deny",
+      "tool": "*",
+      "params": {
+        "path": "**/secrets/**"
+      },
+      "scope": "run",
+      "reason": "Block access to secrets directory"
+    },
+    {
+      "id": "policy10-deny-bash",
+      "action": "deny",
+      "tool": "bash",
+      "scope": "run",
+      "reason": "Prevent shell command execution"
+    },
+    {
+      "id": "policy11-deny-exec",
+      "action": "deny",
+      "tool": "exec",
+      "scope": "run",
+      "reason": "Prevent arbitrary program execution"
+    },
+    {
+      "id": "policy12-deny-delete",
+      "action": "deny",
+      "tool": "delete_file",
+      "scope": "run",
+      "reason": "Prevent file deletion"
+    }
+  ],
+  "metadata": {
+    "createdAt": "2026-02-24T10:00:00.000Z",
+    "updatedAt": "2026-02-24T11:00:00.000Z",
+    "author": "hackathon-team"
+  }
+}

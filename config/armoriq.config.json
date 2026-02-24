@@ -1,0 +1,34 @@
+{
+  "armoriq": {
+    "_comment": "Get your API key from the ArmorIQ dashboard",
+    "apiKey": "${ARMORIQ_API_KEY}",
+    "userId": "hackathon-user",
+    "agentId": "scoped-dev-assistant",
+    "contextId": "hackathon-demo",
+    "validitySeconds": 300
+  },
+  "openclaw": {
+    "_comment": "OpenClaw policy file path",
+    "policyPath": "./config/policies.json"
+  },
+  "workspace": {
+    "root": "./workspace/project",
+    "allowedPaths": [
+      "src/components/**"
+    ],
+    "protectedPaths": [
+      "auth/**",
+      "config/**"
+    ],
+    "deniedPaths": [
+      "**/.env",
+      "**/*.key",
+      "**/secrets/**"
+    ]
+  },
+  "logging": {
+    "enabled": true,
+    "path": "./logs",
+    "verbose": true
+  }
+}
